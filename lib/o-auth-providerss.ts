@@ -1,0 +1,13 @@
+import { GitHubIcon, GoogleIcon } from "@/components/auth/o-auth-icons";
+import { ComponentProps, ElementType } from "react";
+
+export const SUPPORTED_OAUTH_PROVIDERS = ["google", "github"] as const;
+export type SupportedOauthProviders = (typeof SUPPORTED_OAUTH_PROVIDERS)[number];
+
+export const SUPPORTED_OAUTH_PROVIDERS_DETAILS: Record<
+  SupportedOauthProviders,
+  { name: string; Icon: ElementType<ComponentProps<"svg">> }
+> = {
+  github: { name: "GitHub", Icon: GitHubIcon },
+  google: { name: "Google", Icon: GoogleIcon },
+};

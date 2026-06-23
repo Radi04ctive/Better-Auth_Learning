@@ -11,12 +11,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.4.0
         version: 5.4.0(react-hook-form@7.80.0(react@19.2.4))
-      '@zxcvbn-ts/language-common':
-        specifier: ^4.1.2
-        version: 4.1.2
-      '@zxcvbn-ts/language-en':
-        specifier: ^4.1.1
-        version: 4.1.1
       better-auth:
         specifier: ^1.6.20
         version: 1.6.20(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@types/pg@8.20.0)(kysely@0.29.2)(pg@8.22.0))(next@16.2.9(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.22.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -2160,15 +2154,6 @@ packages:
     resolution: {integrity: sha512-nAB74NfSNKknqQ1RrYj6uz8FcXEomu/MATJZxh/x+BArzN2U3JbOYC0APYzUIGhVY3m5hRxA8VPNdPBoG8txlA==}
     cpu: [x64]
     os: [win32]
-
-  '@zxcvbn-ts/dictionary-compression@3.0.1':
-    resolution: {integrity: sha512-p3KyPzxGc3vWSap5hHA6SllbUCmh7s+NtpGyC3qEWrxYJT9t9TUAzjPm48Okipo+UUyPQfDlIvTcs9JRShBFiQ==}
-
-  '@zxcvbn-ts/language-common@4.1.2':
-    resolution: {integrity: sha512-uJlBzhC9/KjPImqdnc1/lPxmdn4xKbkruN5p1mASWkXA0gli+GZ5LrVL+dqscA8Pcf4OfudE56TtCWeHljJOvA==}
-
-  '@zxcvbn-ts/language-en@4.1.1':
-    resolution: {integrity: sha512-6UdzuBd3Uex8TKubohcn+uXRVAH34Zjs2eCfT4hQVo9zeTy7AkQRQfdV4OnHR5hQfW/XBrK/AGTZk7VBWh7wwQ==}
 
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
@@ -6395,16 +6380,6 @@ snapshots:
 
   '@unrs/resolver-binding-win32-x64-msvc@1.12.2':
     optional: true
-
-  '@zxcvbn-ts/dictionary-compression@3.0.1': {}
-
-  '@zxcvbn-ts/language-common@4.1.2':
-    dependencies:
-      '@zxcvbn-ts/dictionary-compression': 3.0.1
-
-  '@zxcvbn-ts/language-en@4.1.1':
-    dependencies:
-      '@zxcvbn-ts/dictionary-compression': 3.0.1
 
   accepts@2.0.0:
     dependencies:

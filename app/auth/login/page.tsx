@@ -10,8 +10,9 @@ import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import EmailVerification from "./_components/EmailVerification";
+import { ForgotPassword } from "./_components/ForgotPassword";
 
-type Tab = "signin" | "signup" | "emailVerification";
+type Tab = "signin" | "signup" | "emailVerification" | "forgotPassword";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -24,10 +25,10 @@ export default function LoginPage() {
     });
   }, [router]);
 
-function openEmailVerificationTab (email:string) {
-  setEmail(email)
-  setSelectedTab('emailVerification')
-}
+  function openEmailVerificationTab(email: string) {
+    setEmail(email);
+    setSelectedTab("emailVerification");
+  }
 
   return (
     <Tabs
@@ -36,7 +37,7 @@ function openEmailVerificationTab (email:string) {
       className="max-w-md w-full my-6 px-4 mx-auto"
     >
       {(selectedTab === "signin" || selectedTab === "signup") && (
-        <TabsList>
+        <TabsList className="w-full">
           <TabsTrigger value="signin">Sign In</TabsTrigger>
           <TabsTrigger value="signup">Sign Up</TabsTrigger>
         </TabsList>
@@ -47,7 +48,10 @@ function openEmailVerificationTab (email:string) {
             <CardTitle className="text-2xl font-medium">Sign In</CardTitle>
           </CardHeader>
           <CardContent>
-            <SignInTab openEmailVerificationTab={openEmailVerificationTab}/>
+            <SignInTab
+              openEmailVerificationTab={openEmailVerificationTab}
+              openForgotPassword={() => setSelectedTab("forgotPassword")}
+            />
           </CardContent>
 
           <Separator />
@@ -64,7 +68,7 @@ function openEmailVerificationTab (email:string) {
             <CardTitle className="text-2xl font-medium">Sign Up</CardTitle>
           </CardHeader>
           <CardContent>
-            <SignUpTab openEmailVerificationTab={openEmailVerificationTab}/>
+            <SignUpTab openEmailVerificationTab={openEmailVerificationTab} />
           </CardContent>
 
           <Separator />
@@ -82,6 +86,17 @@ function openEmailVerificationTab (email:string) {
           </CardHeader>
           <CardContent>
             <EmailVerification email={email} />
+          </CardContent>
+        </Card>
+      </TabsContent>
+
+      <TabsContent value="forgotPassword">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl font-medium">Forgot Password</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ForgotPassword openSignInTab={() => setSelectedTab("signin")} />
           </CardContent>
         </Card>
       </TabsContent>

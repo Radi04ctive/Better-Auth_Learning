@@ -4,13 +4,18 @@ import { db } from "@/drizzle/db"; // your drizzle instance
 import { nextCookies } from "better-auth/next-js";
 import { sendPasswordResetEmail } from "./emails/sendPasswordResetEmail";
 import { sendEmailVerificationEmail } from "./emails/sendVerificationEmail";
-import nodemailer from 'nodemailer'
+import nodemailer from "nodemailer";
 
 export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    revokeSessionsOnPasswordReset: true,
+    sendResetPassword: async ({ user, url }) => {
+      const info = await sendPasswordResetEmail({ user, url });
+      console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
     },
+  },
   emailVerification: {
     sendOnSignIn: true,
     sendOnSignUp: true,

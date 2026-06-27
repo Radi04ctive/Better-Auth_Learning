@@ -12,7 +12,6 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-
 const signInSchema = z.object({
   email: z.email().min(1, "Mail can not be empty."),
   password: z.string().min(6, "Password must be at least 6 characters."),
@@ -20,8 +19,8 @@ const signInSchema = z.object({
 
 type SignInForm = z.infer<typeof signInSchema>;
 
-export function SignInTab() {
-    const router = useRouter()
+export function SignInTab({ openEmailVerificationTab }: { openEmailVerificationTab: (email: string) => void }) {
+  const router = useRouter();
   const form = useForm<SignInForm>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -33,15 +32,22 @@ export function SignInTab() {
   const { isSubmitting } = form.formState;
 
   async function handleSignIn(data: SignInForm) {
-    await authClient.signIn.email({...data, callbackURL: '/'}, {
+    await authClient.signIn.email(
+      { ...data, callbackURL: "/" },
+      {
         onError: (error) => {
-            toast.error(error.error.message || 'Failed to Sign In')
+          if (error.error.code === "EMAIL_NOT_VERIFIED") {
+            openEmailVerificationTab(data.email);
+          }
+          
+          toast.error(error.error.message || "Failed to Sign In");
         },
         onSuccess: () => {
-            toast.success('Sign In successfullay')
-            router.push('/')
-        }
-    })
+          toast.success("Sign In successfullay");
+          router.push("/");
+        },
+      },
+    );
   }
 
   return (
@@ -52,9 +58,7 @@ export function SignInTab() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="email-field">
-                Email
-              </FieldLabel>
+              <FieldLabel htmlFor="email-field">Email</FieldLabel>
               <Input
                 {...field}
                 id="email-field"
@@ -72,9 +76,7 @@ export function SignInTab() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="password-field">
-                Password
-              </FieldLabel>
+              <FieldLabel htmlFor="password-field">Password</FieldLabel>
               <PasswordInput
                 {...field}
                 id="password-field"

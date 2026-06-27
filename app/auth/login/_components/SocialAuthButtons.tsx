@@ -9,7 +9,6 @@ export default function SocialAuthButtons() {
   return SUPPORTED_OAUTH_PROVIDERS.map((provider) => {
     const Icon = SUPPORTED_OAUTH_PROVIDERS_DETAILS[provider].Icon;
 
-    // TODO: Handle loading and error states
     return (
       <AuthActionButton
         key={provider}

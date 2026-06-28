@@ -32,11 +32,21 @@ export const auth = betterAuth({
       prompt: "select_account",
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      mapProfileToUser: () => {
+        return {
+          nickName: "googleUser",
+        };
+      },
     },
     github: {
       prompt: "select_account",
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      mapProfileToUser: () => {
+        return {
+          nickName: "githubUser",
+        };
+      },
     },
   },
   session: {
@@ -52,11 +62,19 @@ export const auth = betterAuth({
   hooks: {
     after: createAuthMiddleware(async (ctx) => {
       if (ctx.path.includes("sign-up")) {
-        console.log("this is from after hooks");
         const user = ctx.context.newSession?.user ?? { name: ctx.body.name, email: ctx.body.email };
         const info = await sendWelcomeEmail(user);
         console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
       }
     }),
+  },
+  user: {
+    additionalFields: {
+      nickName: {
+        type: "string",
+        required: false,
+        defaultValue: "nickName",
+      },
+    },
   },
 });

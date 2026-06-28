@@ -15,6 +15,7 @@ const signUpSchema = z.object({
   name: z.string().min(3, "Name  must be at least 3 characters."),
   email: z.email().min(1, "Mail can not be empty."),
   password: z.string().min(6, "Password must be at least 6 characters."),
+  nickName: z.string().min(3, "Your nick name is too short").max(9, "Your nick name is too long"),
 });
 
 type SignUpForm = z.infer<typeof signUpSchema>;
@@ -26,6 +27,7 @@ export function SignUpTab({ openEmailVerificationTab }: { openEmailVerificationT
       name: "",
       email: "",
       password: "",
+      nickName: "",
     },
   });
 
@@ -94,6 +96,23 @@ export function SignUpTab({ openEmailVerificationTab }: { openEmailVerificationT
                 id="password-field"
                 aria-invalid={fieldState.invalid}
                 placeholder="Your Password"
+                autoComplete="off"
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+        <Controller
+          name="nickName"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="nickname-field">Nick Name</FieldLabel>
+              <Input
+                {...field}
+                id="nickname-field"
+                aria-invalid={fieldState.invalid}
+                placeholder="your favorite nick name"
                 autoComplete="off"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

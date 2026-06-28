@@ -7,6 +7,7 @@ import { sendEmailVerificationEmail } from "../emails/sendVerificationEmail";
 import nodemailer from "nodemailer";
 import { createAuthMiddleware } from "better-auth/api";
 import { sendWelcomeEmail } from "../emails/sendWelcomeEmail";
+import { sendChangeEmailConfirmationEmail } from "../emails/sendChangeEmailConfirmationEmail";
 
 export const auth = betterAuth({
   emailAndPassword: {
@@ -69,11 +70,21 @@ export const auth = betterAuth({
     }),
   },
   user: {
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailConfirmation: async ({ user, url, newEmail }) => {
+        const info = await sendChangeEmailConfirmationEmail({
+          user,
+          newEmail,
+          url,
+        });
+        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
+      },
+    },
     additionalFields: {
       nickName: {
         type: "string",
-        required: false,
-        defaultValue: "nickName",
+        required: true,
       },
     },
   },

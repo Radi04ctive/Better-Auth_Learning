@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { LoadingSwap } from "@/components/ui/loading-swap";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { toast } from "sonner";
 
 const signUpSchema = z.object({
@@ -19,7 +19,7 @@ const signUpSchema = z.object({
 
 type SignUpForm = z.infer<typeof signUpSchema>;
 
-export function SignUpTab({openEmailVerificationTab}: {openEmailVerificationTab: (email:string) => void}) {
+export function SignUpTab({ openEmailVerificationTab }: { openEmailVerificationTab: (email: string) => void }) {
   const form = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {

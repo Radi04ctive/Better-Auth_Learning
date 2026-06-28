@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { LoadingSwap } from "@/components/ui/loading-swap";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordInput } from "@/components/ui/password-input";

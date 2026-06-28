@@ -7,7 +7,7 @@ import { SignInTab } from "./_components/SignInTab";
 import { Separator } from "@/components/ui/separator";
 import SocialAuthButtons from "./_components/SocialAuthButtons";
 import { useEffect, useState } from "react";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
 import EmailVerification from "./_components/EmailVerification";
 import { ForgotPassword } from "./_components/ForgotPassword";

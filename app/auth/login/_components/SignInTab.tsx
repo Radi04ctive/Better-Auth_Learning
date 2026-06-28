@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { LoadingSwap } from "@/components/ui/loading-swap";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -84,12 +84,7 @@ export function SignInTab({
             <Field data-invalid={fieldState.invalid}>
               <div className="flex justify-between items-center">
                 <FieldLabel htmlFor="password-field">Password</FieldLabel>
-                <Button
-                  onClick={openForgotPassword}
-                  type="button"
-                  variant="link"
-                  size="xs"
-                >
+                <Button onClick={openForgotPassword} type="button" variant="link" size="xs">
                   Forgot Password?
                 </Button>
               </div>

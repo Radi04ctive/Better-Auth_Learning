@@ -1,5 +1,5 @@
 import AuthActionButton from "@/components/auth/auth-action-button";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { useEffect, useRef, useState } from "react";
 
 export default function EmailVerification({ email }: { email: string }) {

@@ -1,0 +1,15 @@
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { auth } from "@/lib/auth/auth";
+import { headers } from "next/headers";
+import SessionManagement from "./SessionManagement";
+
+export default async function SessionsTab({ currentSessionToken }: { currentSessionToken: string }) {
+  const sessions = await auth.api.listSessions({ headers: await headers() });
+  return (
+    <Card>
+      <CardContent>
+        <SessionManagement sessions={sessions} currentSessionToken={currentSessionToken}/>
+      </CardContent>
+    </Card>
+  );
+}

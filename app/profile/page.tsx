@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth/auth";
-import { ArrowLeft, Key, LinkIcon, Shield, Trash2, User } from "lucide-react";
+import { ArrowLeft, Key, LinkIcon, Loader2Icon, Shield, Trash2, User } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import ProfileUpdateForm from "./_components/ProfileUpdateForm";
 import EmailVerificationBanner from "./_components/EmailVerificationBanner";
+import { Suspense, type ReactNode } from "react";
+import SecurityTab from "./_components/SecurityTab";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -77,7 +79,17 @@ export default async function ProfilePage() {
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="security">
+          <LoadingSuspense>
+            <SecurityTab email={session.user.email} />
+          </LoadingSuspense>
+        </TabsContent>
       </Tabs>
     </div>
   );
+}
+
+function LoadingSuspense({ children }: { children: ReactNode }) {
+  return <Suspense fallback={<Loader2Icon className="size-20 animate-spin" />}>{children}</Suspense>;
 }

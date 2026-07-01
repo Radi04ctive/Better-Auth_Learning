@@ -1,4 +1,4 @@
-import { betterAuth } from "better-auth";
+import { betterAuth, email } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/drizzle/db"; // your drizzle instance
 import { nextCookies } from "better-auth/next-js";
@@ -8,6 +8,7 @@ import nodemailer from "nodemailer";
 import { createAuthMiddleware } from "better-auth/api";
 import { sendWelcomeEmail } from "../emails/sendWelcomeEmail";
 import { sendChangeEmailConfirmationEmail } from "../emails/sendChangeEmailConfirmationEmail";
+import { sendDeleteAccountEmail } from "../emails/sendDeleteAccountEmail";
 
 export const auth = betterAuth({
   emailAndPassword: {
@@ -85,6 +86,13 @@ export const auth = betterAuth({
       nickName: {
         type: "string",
         required: true,
+      },
+    },
+    deleteUser: {
+      enabled: true,
+      sendDeleteAccountVerification: async ({ user, url }) => {
+        const info = await sendDeleteAccountEmail({ user, url });
+        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(info)}`);
       },
     },
   },

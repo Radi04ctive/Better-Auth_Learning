@@ -44,7 +44,7 @@ export default function SessionManagement({
 
         {otherSessions.length === 0 ? (
           <Card>
-            <CardContent className="text-center text-muted-foreground text-lg" style={{ padding: "40px 0" }}>
+            <CardContent className="text-center text-muted-foreground text-lg py-6">
               No other active sessions
             </CardContent>
           </Card>

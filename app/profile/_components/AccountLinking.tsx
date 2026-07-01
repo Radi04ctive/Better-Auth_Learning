@@ -23,7 +23,7 @@ export default function AccountLinking({ accounts }: { accounts: Account[] }) {
         {accounts.length === 0 ? (
           <Card>
             <CardContent>
-              <p className="text-center text-muted-foreground" style={{ padding: "2rem 0" }}>
+              <p className="text-center text-muted-foreground py-6">
                 No linked accounts founds
               </p>
             </CardContent>

@@ -6,13 +6,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ProfileUpdateForm from "./_components/ProfileUpdateForm";
 import EmailVerificationBanner from "./_components/EmailVerificationBanner";
 import { Suspense, type ReactNode } from "react";
 import SecurityTab from "./_components/SecurityTab";
 import SessionsTab from "./_components/SessionsTab";
 import AccountsTab from "./_components/AccountsTab";
+import AccountDeletion from "./_components/AccountDeletion";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -47,7 +48,7 @@ export default async function ProfilePage() {
       <EmailVerificationBanner currentEmail={session.user.email} />
 
       <Tabs className="space-y-2 mt-4" defaultValue="profile">
-        <TabsList className="grrid grid-cols-5 w-full">
+        <TabsList className="grid grid-cols-5 w-full">
           <TabsTrigger value="profile">
             <User />
             <span className="max-sm:hidden">Profile</span>
@@ -90,7 +91,7 @@ export default async function ProfilePage() {
 
         <TabsContent value="sessions">
           <LoadingSuspense>
-            <SessionsTab currentSessionToken={session.session.token}/>
+            <SessionsTab currentSessionToken={session.session.token} />
           </LoadingSuspense>
         </TabsContent>
 
@@ -98,6 +99,17 @@ export default async function ProfilePage() {
           <LoadingSuspense>
             <AccountsTab />
           </LoadingSuspense>
+        </TabsContent>
+
+        <TabsContent value="danger">
+          <Card className="border border-destructive">
+            <CardHeader>
+              <CardTitle className="text-destructive">Danger Zone</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <AccountDeletion />
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

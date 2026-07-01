@@ -12,6 +12,7 @@ import EmailVerificationBanner from "./_components/EmailVerificationBanner";
 import { Suspense, type ReactNode } from "react";
 import SecurityTab from "./_components/SecurityTab";
 import SessionsTab from "./_components/SessionsTab";
+import AccountsTab from "./_components/AccountsTab";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -90,6 +91,12 @@ export default async function ProfilePage() {
         <TabsContent value="sessions">
           <LoadingSuspense>
             <SessionsTab currentSessionToken={session.session.token}/>
+          </LoadingSuspense>
+        </TabsContent>
+
+        <TabsContent value="accounts">
+          <LoadingSuspense>
+            <AccountsTab />
           </LoadingSuspense>
         </TabsContent>
       </Tabs>
